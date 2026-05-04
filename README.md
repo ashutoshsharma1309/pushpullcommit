@@ -68,10 +68,12 @@ cd tapestry
 npm install
 
 # Copy environment variables
-cp .env.example .env
+cp .env.example .env.local
 
-# Fill in your API keys in .env
+# Fill in your API keys in .env.local
 ```
+
+> Tip: Use `.env.local` for local development so your environment file is ignored by git by default.
 
 > Note: This project uses `.env` by default in the current repository layout. Adjust the copy command if your local setup expects `.env.local`.
 
