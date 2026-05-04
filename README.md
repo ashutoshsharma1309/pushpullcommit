@@ -61,17 +61,19 @@ Built for the **Gemini Live Agent Challenge** hackathon. #GeminiLiveAgentChallen
 
 ```bash
 # Clone the repository
-git clone https://github.com/ashutoshsharma1309/pullpushcommit
+git clone https://github.com/ashutoshsharma1309/pushpullcommit
 cd tapestry
 
 # Install dependencies
 npm install
 
 # Copy environment variables
-cp .env.example .env.local
+cp .env.example .env
 
-# Fill in your API keys in .env.local
+# Fill in your API keys in .env
 ```
+
+> Note: This project uses `.env` by default in the current repository layout. Adjust the copy command if your local setup expects `.env.local`.
 
 ### Environment Variables
 
