@@ -230,12 +230,13 @@ function HomeContent() {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleFeelingLucky}
-              aria-label="Choose a random research location"
+              title="Choose a surprise research location"
+              aria-label="Choose a surprise research location"
               className="group relative px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm font-semibold bg-primary text-primary-foreground border border-primary/50 shadow-lg hover:shadow-xl hover:bg-primary/90 hover:border-primary/80 rounded-full transition-all flex items-center gap-1.5 sm:gap-2 md:gap-2.5 min-h-11"
             >
               <Shuffle className="h-3.5 w-3.5 sm:h-4 sm:w-4 group-hover:rotate-180 transition-transform duration-500" />
-              <span className="hidden sm:inline">Random Location</span>
-              <span className="sm:hidden">Random</span>
+              <span className="hidden sm:inline">Surprise Location</span>
+              <span className="sm:hidden">Surprise</span>
             </motion.button>
           </motion.div>
         </header>
