@@ -41,6 +41,7 @@ export async function searchHistoricalContent(
     searchDepth = 'advanced',
   } = options;
 
+  console.debug(`[Tavily] query="${query}", depth=${searchDepth}, maxResults=${maxResults}`);
   const response = await fetch(TAVILY_SEARCH_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -60,20 +61,27 @@ export async function searchHistoricalContent(
   }
 
   const data = await response.json();
+  if (!data || typeof data !== 'object') {
+    console.warn('[Tavily] Unexpected API response shape, returning empty results');
+  }
 
-  const results: TavilySearchResult[] = (data.results || []).map((r: any) => ({
-    title: r.title || '',
-    url: r.url || '',
-    content: r.content || '',
-    score: r.score || 0,
-  }));
+  const results: TavilySearchResult[] = Array.isArray(data?.results)
+    ? data.results.map((r: any) => ({
+        title: r.title || '',
+        url: r.url || '',
+        content: r.content || '',
+        score: r.score || 0,
+      }))
+    : [];
 
-  const images: TavilyImageResult[] = (data.images || []).map((img: any) => {
-    if (typeof img === 'string') {
-      return { url: img };
-    }
-    return { url: img.url || '', description: img.description };
-  });
+  const images: TavilyImageResult[] = Array.isArray(data?.images)
+    ? data.images.map((img: any) => {
+        if (typeof img === 'string') {
+          return { url: img };
+        }
+        return { url: img.url || '', description: img.description };
+      })
+    : [];
 
   return { results, images };
 }
