@@ -45,7 +45,6 @@ Built for the **Gemini Live Agent Challenge** hackathon. #GeminiLiveAgentChallen
 | **Search** | Tavily API (grounded web search) |
 | **Database** | MongoDB Atlas |
 | **Auth** | JWT-based stateless sessions |
-| **Deployment** | Google Cloud Run |
 
 ---
 
