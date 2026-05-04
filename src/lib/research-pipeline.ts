@@ -461,7 +461,15 @@ export async function runResearchPipeline(
 
   // Step 2: Search
   onProgress({ step: 'searching', message: `Searching across ${queries.length} queries...` });
-  const searchResults = await executeSearches(queries, excludedSources);
+  let searchResults = await executeSearches(queries, excludedSources);
+  if (searchResults.textResults.length === 0) {
+    console.warn('[Research] No text search results were found; retrying with a fallback query');
+    const fallbackResults = await executeSearches([`${locationName} historical overview`], excludedSources);
+    if (fallbackResults.textResults.length > 0) {
+      searchResults = fallbackResults;
+    }
+  }
+
   onProgress({
     step: 'searching',
     message: `Found ${searchResults.textResults.length} sources and ${searchResults.images.length} images`,
