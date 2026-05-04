@@ -6,8 +6,15 @@
  * Requires: GOOGLE_CLOUD_API_KEY env var (same key can work for TTS, Translate, etc.)
  */
 
-const API_KEY = () => process.env.GOOGLE_CLOUD_API_KEY;
 const TTS_ENDPOINT = 'https://texttospeech.googleapis.com/v1/text:synthesize';
+
+function requireGoogleCloudKey(): string {
+  const key = process.env.GOOGLE_CLOUD_API_KEY;
+  if (!key) {
+    throw new Error('GOOGLE_CLOUD_API_KEY is not configured for Google Cloud TTS');
+  }
+  return key;
+}
 
 export interface TTSOptions {
   /** BCP-47 language code, e.g. 'en-US' */
@@ -35,8 +42,7 @@ export async function synthesizeSpeech(
   text: string,
   options: TTSOptions = {},
 ): Promise<TTSResult> {
-  const key = API_KEY();
-  if (!key) throw new Error('GOOGLE_CLOUD_API_KEY is not configured');
+  const key = requireGoogleCloudKey();
 
   const {
     languageCode = 'en-US',
@@ -46,7 +52,7 @@ export async function synthesizeSpeech(
   } = options;
 
   // Journey voices don't support pitch or speakingRate parameters
-  const isJourneyVoice = voiceName.includes('Journey');
+  const isJourneyVoice = /journey/i.test(voiceName);
 
   const body = {
     input: { text },
